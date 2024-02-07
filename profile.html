@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>To-Do List Application</title>
-        <link rel="stylesheet" href="styles/style.css">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <style>
-       .profile {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile {
             width: 300px;
             padding: 20px;
             border: 1px solid #ccc;
@@ -27,15 +23,16 @@
             text-align: center;
             margin-top: 10px;
         }
-        </style>
-    
-    </head>
+    </style>
+</head>
 <body>
-    <div class="profile">
+    <div class="profile" id="profile">
         <div class="profilePic"></div>
         <div class="profileName" id="profileName"></div>
     </div>
+
     <script>
+        // Function to get the user's name from Local Storage
         function getUserName() {
             return localStorage.getItem('userName');
         }
@@ -68,11 +65,10 @@
         }
 
         // Call the displayUserName function when the page loads
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', function() {
             displayUserName();
             // Add event listener to the profile box
             document.getElementById('profile').addEventListener('click', handleProfileClick);
-        };
+        });
     </script>
 </body>
-</html>

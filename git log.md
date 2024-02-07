@@ -48,3 +48,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Feb 7 09:24:18 2024 -0700
 
     images yys
+
+    commit 5ec7842133d48be827d79e117d6fca746e848af6 (HEAD -> main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Feb 7 10:09:49 2024 -0700
+
+    new html profile hopefully
