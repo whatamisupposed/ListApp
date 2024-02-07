@@ -36,3 +36,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Feb 7 08:55:22 2024 -0700
 
     another html page added script to it
+
+    commit 8e839d2404bd0fe1808c8471783121c452028306 (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Feb 7 09:21:08 2024 -0700
+
+    editshtmlfiles added savedtasks addpasswordandedit
