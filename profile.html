@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>To-Do List Application</title>
+        <link rel="stylesheet" href="styles/style.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+       .profile {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer; /* Add cursor pointer to indicate clickability */
+        }
+        .profilePic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 auto;
+        }
+        .profileName {
+            text-align: center;
+            margin-top: 10px;
+        }
+        </style>
+    
+    </head>
+<body>
+    <div class="profile">
+        <div class="profilePic"></div>
+        <div class="profileName" id="profileName"></div>
+    </div>
+    <script>
+        function getUserName() {
+            return localStorage.getItem('userName');
+        }
+
+        // Function to set the user's name in Local Storage
+        function setUserName(name) {
+            localStorage.setItem('userName', name);
+        }
+
+        // Function to display the user's name in the profile box
+        function displayUserName() {
+            var profileName = document.getElementById('profileName');
+            var userName = getUserName();
+
+            if (userName) {
+                profileName.textContent = 'Welcome back, ' + userName + '!';
+            } else {
+                var name = prompt('Please enter your name:');
+                if (name) {
+                    setUserName(name);
+                    profileName.textContent = 'Welcome, ' + name + '!';
+                }
+            }
+        }
+
+        // Function to handle profile click event
+        function handleProfileClick() {
+            // Redirect to the login page
+            window.location.href = 'login.html';
+        }
+
+        // Call the displayUserName function when the page loads
+        window.onload = function() {
+            displayUserName();
+            // Add event listener to the profile box
+            document.getElementById('profile').addEventListener('click', handleProfileClick);
+        };
+    </script>
+</body>
+</html>
