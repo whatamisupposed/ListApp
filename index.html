@@ -18,6 +18,10 @@
             <button onclick="calculate()">Calculate</button>
             <p id="result">Result:</p>
         </div>
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Enter a task...">
+        <button onclick="saveTask()">Add Task</button>
+        <ul id="taskList"></ul>
     </div>
 
     <!-- Bootstrap JS -->
@@ -25,5 +29,48 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scripts/list.js"></script>
+    <script>
+          // Function to save task to Local Storage
+          function saveTask() {
+            // Get the task input value
+            var task = document.getElementById('taskInput').value;
+
+            if (task.trim() !== '') {
+                // Retrieve existing tasks from Local Storage or create an empty array
+                var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+                // Add the new task to the array
+                tasks.push(task);
+
+                // Save the updated tasks array back to Local Storage
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+
+                // Clear the task input field
+                document.getElementById('taskInput').value = '';
+
+                // Refresh the task list
+                refreshTaskList();
+            }
+        }
+
+        // Function to refresh the task list displayed on the page
+        function refreshTaskList() {
+            var taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            // Retrieve tasks from Local Storage
+            var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+            // Display each task as a list item
+            tasks.forEach(function(task) {
+                var li = document.createElement('li');
+                li.textContent = task;
+                taskList.appendChild(li);
+            });
+        }
+
+        // Refresh the task list when the page loads
+        window.onload = refreshTaskList;
+    </script>
 </body>
 </html>

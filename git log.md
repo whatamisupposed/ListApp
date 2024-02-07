@@ -24,9 +24,15 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Feb 7 08:06:57 2024 -0700
 
     git log document (start) annd additions to script
-    
+
     commit 51709dbf8ae4d9e837613c1f271e9dddff6ceedb (HEAD -> main, origin/main)
 Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Feb 7 08:51:41 2024 -0700
 
     put more meat on everything etc
+
+    commit 7529e463ec1ccf100811151a3052c6c4ba03443d (HEAD -> main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Feb 7 08:55:22 2024 -0700
+
+    another html page added script to it
