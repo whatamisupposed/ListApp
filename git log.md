@@ -18,4 +18,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Tue Feb 6 16:42:52 2024 -0700
 
     first commit
-PS C:\Users\twyma\Documents\MTechWork\ListApp> 
+ 
+ commit 8e60c023fc26a1f462add4c944ada53ae8ad0e31 (HEAD -> main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Feb 7 08:06:57 2024 -0700
+
+    git log document (start) annd additions to script
