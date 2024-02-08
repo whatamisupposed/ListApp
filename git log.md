@@ -54,3 +54,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Feb 7 10:09:49 2024 -0700
 
     new html profile hopefully
+
+    commit 41d4a7e3be2e523e2e1e3f39a0815b05f1e0cf44 (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Feb 7 10:16:31 2024 -0700
+
+    login and profile edits
