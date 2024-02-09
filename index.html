@@ -4,166 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List Application</title>
-    <!-- Bootstrap CSS -->
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="topNav">
+        
+    </div>
     <div class="container">
-        <!-- Input field for the main list name -->
-        <input type="text" id="mainListNameInput" placeholder="Enter list name...">
-        <!-- Input field for new tasks in the main list -->
-        <input type="text" id="mainTaskInput" placeholder="Enter a task...">
-        <!-- Button to add a new task to the main list -->
-        <button onclick="addTask('mainTaskInput', 'mainTaskList')">Add Task</button>
-        <!-- Heading for the main list -->
-        <h1 id="mainListNameHeading">To-Do List</h1>
-        <!-- Task list for the main list -->
-        <ul id="mainTaskList"></ul>
-        <!-- Button to add another list -->
+       
         <button onclick="addNewList()">Add Another List</button>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        // Function to add a task to the main list
-        function addTask(taskInputId, taskListId) {
-            var taskInput = document.getElementById(taskInputId);
-            var task = taskInput.value.trim();
-
-            if (task !== '') {
-                var taskList = document.getElementById(taskListId);
-                var li = document.createElement('li');
-                li.textContent = task;
-
-                var deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.onclick = function() {
-                    deleteTask(li);
-                };
-                li.appendChild(deleteButton);
-
-                taskList.appendChild(li);
-                taskInput.value = '';
-            }
-        }
-
-        // Function to delete a task
-        function deleteTask(task) {
-            task.parentNode.removeChild(task);
-        }
-
-        // Function to add another list
-        function addNewList() {
-            var container = document.querySelector('.container');
-            var newListDiv = document.createElement('div');
-            // Set a class for styling
-            newListDiv.classList.add('list-container');
-
-            var newListNameInput = document.createElement('input');
-            newListNameInput.type = 'text';
-            newListNameInput.placeholder = 'Enter list name...';
-            newListNameInput.addEventListener('keypress', function(event) {
-                if (event.key === 'Enter') {
-                    changeListName(newListNameInput);
-                }
-            });
-            newListDiv.appendChild(newListNameInput);
-
-            var newTaskInput = document.createElement('input');
-            newTaskInput.type = 'text';
-            newTaskInput.placeholder = 'Enter a task...';
-            newTaskInput.addEventListener('keypress', function(event) {
-                if (event.key === 'Enter') {
-                    addTask(newTaskInput, newTaskList.id);
-                }
-            });
-            newListDiv.appendChild(newTaskInput);
-
-            var newListHeading = document.createElement('h2');
-            newListHeading.textContent = newListNameInput.value || 'New List';
-            newListDiv.appendChild(newListHeading);
-
-            var newTaskList = document.createElement('ul');
-            newTaskList.id = 'taskList_' + Date.now(); // Generate unique ID for each list
-            newListDiv.appendChild(newTaskList);
-
-            var addTaskButton = document.createElement('button');
-            addTaskButton.textContent = 'Add Task';
-            addTaskButton.onclick = function() {
-                saveTask(newTaskInput, newTaskList.id);
-            };
-            newListDiv.appendChild(addTaskButton);
-
-            container.appendChild(newListDiv);
-
-
-            // Event listener for the Enter key press on the task input field of the new list
-            newTaskInput.addEventListener('keypress', function(event) {
-                if (event.key === 'Enter') {
-                    addTask(newTaskInput, newTaskList.id);
-                }
-            });
-        }
-
-        // Function to save a task to the specified task list
-        function saveTask(taskInput, taskListId) {
-            var task = taskInput.value.trim();
-            if (task !== '') {
-                var taskList = document.getElementById(taskListId);
-                var li = document.createElement('li');
-                li.textContent = task;
-
-                var deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.onclick = function() {
-                    deleteTask(li);
-                };
-                li.appendChild(deleteButton);
-
-                taskList.appendChild(li);
-                taskInput.value = '';
-            }
-        }
-
-        // Function to delete a task
-        function deleteTask(task) {
-            task.parentNode.removeChild(task);
-        }
-
-        // Function to change the name of a list
-        function changeListName(listNameInput) {
-            var listName = listNameInput.value.trim();
-            if (listName !== '') {
-                var newListHeading = listNameInput.parentNode.querySelector('h2');
-                newListHeading.textContent = listName;
-            }
-        }
-
-        // Function to save the main list name
-        function saveMainListName() {
-            var mainListNameInput = document.getElementById('mainListNameInput');
-            var mainListNameHeading = document.getElementById('mainListNameHeading');
-            if (mainListNameInput.value.trim() !== '') {
-                mainListNameHeading.textContent = mainListNameInput.value.trim();
-            }
-        }
-
-        // Event listener for main list name input field
-        document.getElementById('mainListNameInput').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                saveMainListName();
-            }
-        });
-
-        // Event listener for main task input field
-        document.getElementById('mainTaskInput').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                addTask('mainTaskInput', 'mainTaskList');
-            }
-        });
-    </script>
+    <script src="scripts/list.js"></script>
 </body>
 </html>
+

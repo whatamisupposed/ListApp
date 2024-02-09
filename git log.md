@@ -60,3 +60,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Feb 7 10:16:31 2024 -0700
 
     login and profile edits
+
+commit 46959195f91e247eeb9d58647c25406e226eea83 (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Thu Feb 8 09:10:27 2024 -0700
+
+    list edits js edits can add lists/ add/del task

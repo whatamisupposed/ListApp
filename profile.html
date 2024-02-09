@@ -5,12 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Set height of the body to the full viewport height */
+            margin: 0; /* Remove default margin */
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 600px; /* Total width of the container */
+        }
         .profile {
-            width: 300px;
+            width: 200px; /* Adjusted width for profile box */
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
             cursor: pointer; /* Add cursor pointer to indicate clickability */
+            background-color: white; /* Set background color of profile box */
         }
         .profilePic {
             width: 100px;
@@ -22,13 +37,26 @@
         .profileName {
             text-align: center;
             margin-top: 10px;
+            color: gold;
+        }
+        .createProfileButton {
+            width: 120px;
+            height: 120px;
+            background-image: url('assets/icons/icons8-add-50.png'); /* Use the specified image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            background-color: white;
         }
     </style>
 </head>
 <body>
-    <div class="profile" id="profile">
-        <div class="profilePic"></div>
-        <div class="profileName" id="profileName"></div>
+    <div class="container">
+        <div class="profile" id="profile">
+            <div class="profilePic"></div>
+            <div class="profileName" id="profileName"></div>
+        </div>
+        <div class="createProfileButton" id="createProfileButton"></div>
     </div>
 
     <script>
@@ -64,11 +92,20 @@
             window.location.href = 'login.html';
         }
 
+        // Function to handle create profile click event
+        function handleCreateProfileClick() {
+            // Redirect to the create profile page
+            window.location.href = 'create_profile.html';
+        }
+
         // Call the displayUserName function when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             displayUserName();
             // Add event listener to the profile box
             document.getElementById('profile').addEventListener('click', handleProfileClick);
+            // Add event listener to the create profile button
+            document.getElementById('createProfileButton').addEventListener('click', handleCreateProfileClick);
         });
     </script>
 </body>
+</html>
