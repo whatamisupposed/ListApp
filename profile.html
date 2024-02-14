@@ -15,17 +15,20 @@
         }
         .container {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap; /* Allow profiles to wrap to the next line */
+            justify-content: center;
             align-items: center;
-            width: 600px; /* Total width of the container */
+            width: 80%; /* Adjusted width of the container */
+            max-width: 800px; /* Set maximum width for better responsiveness */
         }
         .profile {
             width: 200px; /* Adjusted width for profile box */
             padding: 20px;
+            margin: 10px; /* Add margin around profiles */
             border: 1px solid #ccc;
             border-radius: 5px;
-            cursor: pointer; /* Add cursor pointer to indicate clickability */
             background-color: white; /* Set background color of profile box */
+            position: relative; /* Position for delete button */
         }
         .profilePic {
             width: 100px;
@@ -39,6 +42,18 @@
             margin-top: 10px;
             color: gold;
         }
+        .deleteProfileButton {
+            position: absolute; /* Position delete button relative to profile box */
+            top: 10px; /* Adjust top position */
+            right: 10px; /* Adjust right position */
+            background-color: transparent; /* Transparent background */
+            border: none; /* Remove border */
+            cursor: pointer; /* Add cursor pointer */
+            color: #666; /* Button color */
+        }
+        .deleteProfileButton:hover {
+            color: red; /* Change color on hover */
+        }
         .createProfileButton {
             width: 120px;
             height: 120px;
@@ -47,43 +62,49 @@
             background-repeat: no-repeat;
             cursor: pointer;
             background-color: white;
+            margin: 10px; /* Add margin around the button */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile" id="profile">
-            <div class="profilePic"></div>
-            <div class="profileName" id="profileName"></div>
-        </div>
-        <div class="createProfileButton" id="createProfileButton"></div>
-    </div>
+    <div class="container" id="profilesContainer"></div>
+    <div class="createProfileButton" id="createProfileButton"></div>
 
     <script>
-        // Function to get the user's name from Local Storage
-        function getUserName() {
-            return localStorage.getItem('userName');
+        // Function to get the user's profiles from Local Storage
+        function getUserProfiles() {
+            const profiles = localStorage.getItem('userProfiles');
+            return profiles ? JSON.parse(profiles) : [];
         }
 
-        // Function to set the user's name in Local Storage
-        function setUserName(name) {
-            localStorage.setItem('userName', name);
+        // Function to set the user's profiles in Local Storage
+        function setUserProfiles(profiles) {
+            localStorage.setItem('userProfiles', JSON.stringify(profiles));
         }
 
-        // Function to display the user's name in the profile box
-        function displayUserName() {
-            var profileName = document.getElementById('profileName');
-            var userName = getUserName();
+        // Function to display all user profiles
+        function displayUserProfiles() {
+            const profilesContainer = document.getElementById('profilesContainer');
+            profilesContainer.innerHTML = ''; // Clear existing profiles
 
-            if (userName) {
-                profileName.textContent = 'Welcome back, ' + userName + '!';
-            } else {
-                var name = prompt('Please enter your name:');
-                if (name) {
-                    setUserName(name);
-                    profileName.textContent = 'Welcome, ' + name + '!';
-                }
-            }
+            const profiles = getUserProfiles();
+            profiles.forEach(profile => {
+                const profileElement = createProfileElement(profile);
+                profilesContainer.appendChild(profileElement);
+            });
+        }
+
+        // Function to create a profile element
+        function createProfileElement(profile) {
+            const profileElement = document.createElement('div');
+            profileElement.classList.add('profile');
+            profileElement.innerHTML = `
+                <div class="profilePic"></div>
+                <div class="profileName">${profile}</div>
+                <button class="deleteProfileButton" onclick="deleteProfile(this)">Delete</button>
+            `;
+            profileElement.addEventListener('click', () => handleProfileClick());
+            return profileElement;
         }
 
         // Function to handle profile click event
@@ -92,20 +113,34 @@
             window.location.href = 'login.html';
         }
 
-        // Function to handle create profile click event
-        function handleCreateProfileClick() {
-            // Redirect to the create profile page
-            window.location.href = 'create_profile.html';
+        // Function to handle delete profile button click event
+        function deleteProfile(button) {
+            const profileElement = button.parentElement;
+            const profileName = profileElement.querySelector('.profileName').textContent;
+            const profiles = getUserProfiles();
+            const updatedProfiles = profiles.filter(profile => profile !== profileName);
+            setUserProfiles(updatedProfiles);
+            displayUserProfiles();
         }
 
-        // Call the displayUserName function when the page loads
+        // Function to handle create profile click event
+        function handleCreateProfileClick() {
+            const name = prompt('Please enter a new name for the profile:');
+            if (name) {
+                const profiles = getUserProfiles();
+                profiles.push(name);
+                setUserProfiles(profiles);
+                displayUserProfiles();
+            }
+        }
+
+        // Call the displayUserProfiles function when the page loads
         document.addEventListener('DOMContentLoaded', function() {
-            displayUserName();
-            // Add event listener to the profile box
-            document.getElementById('profile').addEventListener('click', handleProfileClick);
+            displayUserProfiles();
             // Add event listener to the create profile button
             document.getElementById('createProfileButton').addEventListener('click', handleCreateProfileClick);
         });
     </script>
 </body>
 </html>
+

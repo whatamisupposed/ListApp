@@ -66,3 +66,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Thu Feb 8 09:10:27 2024 -0700
 
     list edits js edits can add lists/ add/del task
+
+commit c2c55d50df85e26fb2c36af7c0145c92bebf6e84 (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Fri Feb 9 10:06:12 2024 -0700
+
+    edits to main adding lists thingjs and profiles

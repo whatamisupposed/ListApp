@@ -3,43 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Page</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <title>Password Protected Profiles</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            max-width: 800px;
+        }
+        .profile {
+            width: 200px;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            position: relative;
+            cursor: pointer;
+        }
+        .profile:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .profilePic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 auto;
+        }
+        .profileName {
+            text-align: center;
+            margin-top: 10px;
+            color: gold;
+        }
+        .passwordInput {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Password Protected Page</h1>
-        <input type="password" id="passwordInput" placeholder="Enter password...">
-        <button onclick="validatePassword()">Enter</button>
-        <hr>
-        <h2>Change Password</h2>
-        <input type="password" id="newPasswordInput" placeholder="Enter new password...">
-        <button onclick="changePassword()">Change Password</button>
-    </div>
+    <div class="container" id="profilesContainer"></div>
 
     <script>
-        // Function to validate the entered password
-        function validatePassword() {
-            var password = document.getElementById('passwordInput').value;
-            var storedPassword = localStorage.getItem('password');
+        function getUserProfiles() {
+            const profiles = localStorage.getItem('userProfiles');
+            return profiles ? JSON.parse(profiles) : [];
+        }
 
-            // Check if the entered password matches the stored password
-            if (password === storedPassword) {
-                // Redirect to the index.html page
-                window.location.href = 'index.html';
+        function setUserProfiles(profiles) {
+            localStorage.setItem('userProfiles', JSON.stringify(profiles));
+        }
+
+        function displayUserProfiles() {
+            const profilesContainer = document.getElementById('profilesContainer');
+            profilesContainer.innerHTML = '';
+
+            const profiles = getUserProfiles();
+            profiles.forEach(profile => {
+                const profileElement = createProfileElement(profile);
+                profilesContainer.appendChild(profileElement);
+            });
+        }
+
+        function createProfileElement(profile) {
+            const profileElement = document.createElement('div');
+            profileElement.classList.add('profile');
+            profileElement.innerHTML = `
+                <div class="profilePic"></div>
+                <div class="profileName">${profile.name}</div>
+                <div class="passwordInput" data-profile-id="${profile.id}">
+                    <input type="password" class="password" placeholder="Set password...">
+                    <button onclick="setPassword('${profile.id}')">Set Password</button>
+                </div>
+            `;
+            profileElement.addEventListener('click', () => handleProfileClick(profile.id));
+            return profileElement;
+        }
+
+        function handleProfileClick(profileId) {
+            const passwordInput = document.querySelector(`.passwordInput[data-profile-id="${profileId}"]`);
+            passwordInput.style.display = 'block';
+        }
+
+        function setPassword(profileId) {
+            const passwordInput = document.querySelector(`.passwordInput[data-profile-id="${profileId}"] .password`);
+            const password = passwordInput.value;
+
+            const profiles = getUserProfiles();
+            const profileIndex = profiles.findIndex(profile => profile.id === profileId);
+
+            if (profileIndex !== -1) {
+                profiles[profileIndex].password = password;
+                setUserProfiles(profiles);
+                alert('Password set successfully.');
             } else {
-                alert('Incorrect password. Please try again.');
+                alert('Error: Profile not found.');
             }
         }
 
-        // Function to change the password
-        function changePassword() {
-            var newPassword = document.getElementById('newPasswordInput').value;
-
-            // Save the new password
-            localStorage.setItem('password', newPassword);
-            alert('Password changed successfully.');
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            displayUserProfiles();
+        });
     </script>
 </body>
 </html>
+
