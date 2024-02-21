@@ -9,26 +9,30 @@
             background-color: black;
             display: flex;
             justify-content: center;
-            align-items: center; /* Center vertically */
-            height: 100vh; /* Set height of the body to the full viewport height */
-            margin: 0; /* Remove default margin */
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
         }
         .container {
             display: flex;
-            flex-wrap: wrap; /* Allow profiles to wrap to the next line */
+            flex-wrap: wrap; 
             justify-content: center;
             align-items: center;
-            width: 80%; /* Adjusted width of the container */
-            max-width: 800px; /* Set maximum width for better responsiveness */
+            width: 80%; 
+            max-width: 800px; 
         }
         .profile {
-            width: 200px; /* Adjusted width for profile box */
+            width: 200px; 
             padding: 20px;
-            margin: 10px; /* Add margin around profiles */
+            margin: 10px; 
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: white; /* Set background color of profile box */
-            position: relative; /* Position for delete button */
+            background-color: white; 
+            position: relative; 
+            cursor: pointer; 
+        }
+        .profile:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         .profilePic {
             width: 100px;
@@ -43,26 +47,25 @@
             color: gold;
         }
         .deleteProfileButton {
-            position: absolute; /* Position delete button relative to profile box */
-            top: 10px; /* Adjust top position */
-            right: 10px; /* Adjust right position */
-            background-color: transparent; /* Transparent background */
-            border: none; /* Remove border */
-            cursor: pointer; /* Add cursor pointer */
-            color: #666; /* Button color */
+            position: absolute;
+            top: 10px; 
+            right: 10px;
+            background-color: transparent; 
+            border: none; 
+            color: #666;
         }
         .deleteProfileButton:hover {
-            color: red; /* Change color on hover */
+            color: red; 
         }
         .createProfileButton {
             width: 120px;
             height: 120px;
-            background-image: url('assets/icons/icons8-add-50.png'); /* Use the specified image */
+            background-image: url('assets/icons/icons8-add-50.png'); 
             background-size: cover;
             background-repeat: no-repeat;
             cursor: pointer;
             background-color: white;
-            margin: 10px; /* Add margin around the button */
+            margin: 10px; 
         }
     </style>
 </head>
@@ -71,76 +74,69 @@
     <div class="createProfileButton" id="createProfileButton"></div>
 
     <script>
-        // Function to get the user's profiles from Local Storage
+      
         function getUserProfiles() {
             const profiles = localStorage.getItem('userProfiles');
             return profiles ? JSON.parse(profiles) : [];
         }
 
-        // Function to set the user's profiles in Local Storage
         function setUserProfiles(profiles) {
             localStorage.setItem('userProfiles', JSON.stringify(profiles));
         }
 
-        // Function to display all user profiles
         function displayUserProfiles() {
             const profilesContainer = document.getElementById('profilesContainer');
-            profilesContainer.innerHTML = ''; // Clear existing profiles
+            profilesContainer.innerHTML = ''; 
 
             const profiles = getUserProfiles();
             profiles.forEach(profile => {
-                const profileElement = createProfileElement(profile);
-                profilesContainer.appendChild(profileElement);
+                if (profile.name !== undefined) { 
+                    const profileElement = createProfileElement(profile);
+                    profilesContainer.appendChild(profileElement);
+                }
             });
         }
 
-        // Function to create a profile element
         function createProfileElement(profile) {
             const profileElement = document.createElement('div');
             profileElement.classList.add('profile');
             profileElement.innerHTML = `
                 <div class="profilePic"></div>
-                <div class="profileName">${profile}</div>
-                <button class="deleteProfileButton" onclick="deleteProfile(this)">Delete</button>
+                <div class="profileName">${profile.name}</div>
+                <button class="deleteProfileButton" onclick="deleteProfile(event, '${profile.name}')">Delete</button>
             `;
-            profileElement.addEventListener('click', () => handleProfileClick());
+            profileElement.addEventListener('click', () => handleProfileClick(profile.name));
             return profileElement;
         }
 
-        // Function to handle profile click event
-        function handleProfileClick() {
-            // Redirect to the login page
-            window.location.href = 'login.html';
+        function handleProfileClick(profileName) {
+
+            window.location.href = `login.html?profile=${encodeURIComponent(profileName)}`;
         }
 
-        // Function to handle delete profile button click event
-        function deleteProfile(button) {
-            const profileElement = button.parentElement;
-            const profileName = profileElement.querySelector('.profileName').textContent;
+        function deleteProfile(event, profileName) {
+            event.stopPropagation(); 
             const profiles = getUserProfiles();
-            const updatedProfiles = profiles.filter(profile => profile !== profileName);
+            const updatedProfiles = profiles.filter(profile => profile.name !== profileName);
             setUserProfiles(updatedProfiles);
             displayUserProfiles();
         }
 
-        // Function to handle create profile click event
         function handleCreateProfileClick() {
             const name = prompt('Please enter a new name for the profile:');
             if (name) {
                 const profiles = getUserProfiles();
-                profiles.push(name);
+                profiles.push({ name: name });
                 setUserProfiles(profiles);
                 displayUserProfiles();
             }
         }
 
-        // Call the displayUserProfiles function when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             displayUserProfiles();
-            // Add event listener to the create profile button
+
             document.getElementById('createProfileButton').addEventListener('click', handleCreateProfileClick);
         });
     </script>
 </body>
 </html>
-

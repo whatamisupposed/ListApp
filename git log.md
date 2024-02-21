@@ -72,3 +72,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Fri Feb 9 10:06:12 2024 -0700
 
     edits to main adding lists thingjs and profiles
+
+    commit 6db2b28a654e7dee7480d9e462fcc6464dd67cea (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Feb 14 07:50:20 2024 -0700
+
+    additions to js

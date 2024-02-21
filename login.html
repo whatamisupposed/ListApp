@@ -3,119 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Profiles</title>
-    <style>
-        body {
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: white;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            width: 80%;
-            max-width: 800px;
-        }
-        .profile {
-            width: 200px;
-            padding: 20px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: white;
-            position: relative;
-            cursor: pointer;
-        }
-        .profile:hover {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        .profilePic {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #ccc;
-            margin: 0 auto;
-        }
-        .profileName {
-            text-align: center;
-            margin-top: 10px;
-            color: gold;
-        }
-        .passwordInput {
-            display: none;
-        }
-    </style>
+    <title>Login</title>
 </head>
 <body>
-    <div class="container" id="profilesContainer"></div>
-
+    <h1>Login</h1>
+    <div id="passwordContainer">
+        <input type="password" id="passwordInput" placeholder="Enter password...">
+        <button onclick="enterPassword()">Enter Password</button>
+        <button onclick="setPassword()">Set Password</button>
+    </div>
+    
     <script>
-        function getUserProfiles() {
-            const profiles = localStorage.getItem('userProfiles');
-            return profiles ? JSON.parse(profiles) : [];
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const profile = urlParams.get('profile');
+            if (profile) {
+                const profileNameElement = document.createElement('p');
+                profileNameElement.textContent = `Logging in as: ${decodeURIComponent(profile)}`;
+                document.body.appendChild(profileNameElement);
+            }
+        });
 
-        function setUserProfiles(profiles) {
-            localStorage.setItem('userProfiles', JSON.stringify(profiles));
-        }
+        function enterPassword() {
+            const passwordInput = document.getElementById('passwordInput').value;
+            const profile = document.location.search.replace(/^.*?\=/,'');
 
-        function displayUserProfiles() {
-            const profilesContainer = document.getElementById('profilesContainer');
-            profilesContainer.innerHTML = '';
-
-            const profiles = getUserProfiles();
-            profiles.forEach(profile => {
-                const profileElement = createProfileElement(profile);
-                profilesContainer.appendChild(profileElement);
-            });
-        }
-
-        function createProfileElement(profile) {
-            const profileElement = document.createElement('div');
-            profileElement.classList.add('profile');
-            profileElement.innerHTML = `
-                <div class="profilePic"></div>
-                <div class="profileName">${profile.name}</div>
-                <div class="passwordInput" data-profile-id="${profile.id}">
-                    <input type="password" class="password" placeholder="Set password...">
-                    <button onclick="setPassword('${profile.id}')">Set Password</button>
-                </div>
-            `;
-            profileElement.addEventListener('click', () => handleProfileClick(profile.id));
-            return profileElement;
-        }
-
-        function handleProfileClick(profileId) {
-            const passwordInput = document.querySelector(`.passwordInput[data-profile-id="${profileId}"]`);
-            passwordInput.style.display = 'block';
-        }
-
-        function setPassword(profileId) {
-            const passwordInput = document.querySelector(`.passwordInput[data-profile-id="${profileId}"] .password`);
-            const password = passwordInput.value;
-
-            const profiles = getUserProfiles();
-            const profileIndex = profiles.findIndex(profile => profile.id === profileId);
-
-            if (profileIndex !== -1) {
-                profiles[profileIndex].password = password;
-                setUserProfiles(profiles);
-                alert('Password set successfully.');
+            const profiles = JSON.parse(localStorage.getItem('userProfiles'));
+            const profileObj = profiles.find(prof => prof.name === profile);
+            
+            if (profileObj.password === passwordInput) {
+                window.location.href = 'index.html';
             } else {
-                alert('Error: Profile not found.');
+                alert('Incorrect password.');
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            displayUserProfiles();
-        });
+        function setPassword() {
+            const passwordInput = document.getElementById('passwordInput').value;
+            const profile = document.location.search.replace(/^.*?\=/,'');
+
+            const profiles = JSON.parse(localStorage.getItem('userProfiles'));
+            const profileObj = profiles.find(prof => prof.name === profile);
+
+            profileObj.password = passwordInput;
+            localStorage.setItem('userProfiles', JSON.stringify(profiles));
+        }
     </script>
 </body>
 </html>
-
