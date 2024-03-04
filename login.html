@@ -4,6 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <style>
+        body {
+            background-color: black;
+            color: gold;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px; /* Adjust as needed */
+        }
+        #passwordContainer {
+            border: 2px solid gold;
+            padding: 20px;
+            margin: 0 auto; /* Center horizontally */
+            width: 300px; /* Set a fixed width */
+        }
+        input[type="password"] {
+            display: block; /* Make the input element block-level */
+            width: calc(100% - 22px); /* Adjust width for padding and border */
+            margin-bottom: 10px; /* Add space between input and buttons */
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid gold;
+            background-color: black;
+            color: gold;
+            font-size: 16px;
+            box-sizing: border-box; 
+        }
+        button {
+            width: calc(50% - 5px); /* Adjust width for space between buttons */
+            padding: 10px;
+            background-color: gold;
+            border: none;
+            color: black;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: darkgoldenrod;
+        }
+    </style>
 </head>
 <body>
     <h1>Login</h1>

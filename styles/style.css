@@ -1,11 +1,24 @@
+.topNav {
+    width: 500px; /* Adjust width as needed */
+    background-color: #f0f0f0; /* Background color for topNav */
+    padding: 10px; /* Padding for topNav */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.topNav .list-name {
+    margin-right: 10px; /* Adjust margin between list names */
+    cursor: pointer;
+    padding: 5px 10px; /* Padding for list names */
+    background-color: #e0e0e0; /* Background color for list names */
+    border-radius: 5px; /* Rounded corners for list names */
+}
+
+.topNav .list-name:hover {
+    background-color: #c0c0c0; /* Background color for list names on hover */
+}
+
 .container {
-    text-align: center;
-}
-
-.calculator {
-    margin-top: 20px;
-}
-
-input, button {
-    margin: 5px;
+    margin-top: 20px; /* Adjust margin top to make space for topNav */
 }

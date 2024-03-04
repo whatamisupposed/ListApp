@@ -78,3 +78,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Feb 14 07:50:20 2024 -0700
 
     additions to js
+
+    commit 63f1b1ac5c561cf266c51ac0cd39c459497e4a0c (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Feb 21 07:38:30 2024 -0700
+
+    more edits to js
