@@ -1,24 +1,24 @@
 .topNav {
-    width: 500px; /* Adjust width as needed */
-    background-color: #f0f0f0; /* Background color for topNav */
-    padding: 10px; /* Padding for topNav */
+    width: 500px; /* Style for index.hmtl*/
+    background-color: #f0f0f0; 
+    padding: 10px; 
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
 .topNav .list-name {
-    margin-right: 10px; /* Adjust margin between list names */
+    margin-right: 10px; 
     cursor: pointer;
-    padding: 5px 10px; /* Padding for list names */
-    background-color: #e0e0e0; /* Background color for list names */
-    border-radius: 5px; /* Rounded corners for list names */
+    padding: 5px 10px; 
+    background-color: #e0e0e0; 
+    border-radius: 5px; 
 }
 
 .topNav .list-name:hover {
-    background-color: #c0c0c0; /* Background color for list names on hover */
+    background-color: #c0c0c0; 
 }
 
 .container {
-    margin-top: 20px; /* Adjust margin top to make space for topNav */
+    margin-top: 20px; 
 }

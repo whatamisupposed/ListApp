@@ -1,4 +1,4 @@
-function addNewList() {
+function addNewList() { // js for index.html
     var container = document.querySelector('.container');
     var newListDiv = document.createElement('div');
 
@@ -37,7 +37,7 @@ function addNewList() {
     deleteListButton.textContent = 'Delete List';
     deleteListButton.onclick = function() {
         container.removeChild(newListDiv);
-        saveData(); // Save data after deleting list
+        saveData(); 
     };
     newListDiv.appendChild(deleteListButton);
 
@@ -45,7 +45,7 @@ function addNewList() {
     clearCompletedButton.textContent = 'Clear Completed';
     clearCompletedButton.onclick = function() {
         clearCompletedTasks(newTaskList);
-        saveData(); // Save data after clearing completed tasks
+        saveData(); 
     };
     newListDiv.appendChild(clearCompletedButton);
 
@@ -53,16 +53,15 @@ function addNewList() {
     addTaskButton.textContent = 'Add Task';
     addTaskButton.onclick = function() {
         addTask(newTaskInput, newTaskList.id);
-        saveData(); // Save data after adding task
+        saveData(); 
     };
     newListDiv.appendChild(addTaskButton);
 
     container.appendChild(newListDiv);
 
-    saveData(); // Save data after adding list
+    saveData(); 
 }
 
-// Function to add a task
 function addTask(taskInput, taskListId) {
     var task = taskInput.value.trim();
     if (task !== '') {
@@ -75,19 +74,14 @@ function addTask(taskInput, taskListId) {
 
         taskList.appendChild(li);
         taskInput.value = '';
-        saveData(); // Save data after adding task
+        saveData(); 
     }
 }
 
-
-
-
-// Function to delete a task
 function deleteTask(task) {
     task.parentNode.removeChild(task);
 }
 
-// Function to clear completed tasks
 function clearCompletedTasks(taskList) {
     taskList.querySelectorAll('li').forEach(function(task) {
         if (task.querySelector('input[type="checkbox"]').checked) {
@@ -96,15 +90,14 @@ function clearCompletedTasks(taskList) {
     });
 }
 
-// Function to change list name
 function changeListName(listNameInput) {
     var listName = listNameInput.value.trim();
     if (listName !== '') {
         var newListHeading = listNameInput.parentNode.querySelector('h2');
         var oldListName = newListHeading.textContent;
         newListHeading.textContent = listName;
-        updateListNameInTopNav(oldListName, listName); // Update list name in topNav
-        saveData(); // Save data after changing list name
+        updateListNameInTopNav(oldListName, listName); 
+        saveData(); 
     }
 }
 
@@ -118,7 +111,6 @@ function updateListNameInTopNav(oldName, newName) {
     });
 }
 
-// Function to save data to localStorage
 function saveData() {
     var container = document.querySelector('.container');
     var data = {
@@ -146,14 +138,14 @@ function loadData() {
     if (data) {
         var container = document.querySelector('.container');
         var topNav = document.querySelector('.topNav');
-        topNav.innerHTML = ''; // Clear existing topNav content
+        topNav.innerHTML = ''; 
 
-        var listNames = []; // Array to store unique list names
+        var listNames = []; 
         data.lists.forEach(function(listData) {
             var newListName = listData.name.trim();
             if (newListName !== '' && !listNames.includes(newListName)) {
-                listNames.push(newListName); // Add unique list name to array
-                addListNameToTopNav(newListName); // Add list name to topNav
+                listNames.push(newListName); 
+                addListNameToTopNav(newListName); 
             }
             var newListDiv = document.createElement('div');
             newListDiv.classList.add('list-container');
@@ -162,7 +154,7 @@ function loadData() {
             newListNameInput.type = 'text';
             newListNameInput.value = newListName;
             newListNameInput.addEventListener('input', function() {
-                saveData(); // Save data after changing list name
+                saveData(); 
             });
             newListDiv.appendChild(newListNameInput);
 
@@ -181,8 +173,8 @@ function loadData() {
             deleteListButton.textContent = 'Delete List';
             deleteListButton.onclick = function() {
                 container.removeChild(newListDiv);
-                saveData(); // Save data after deleting list
-                removeListNameFromTopNav(newListHeading.textContent); // Remove list name from topNav
+                saveData(); 
+                removeListNameFromTopNav(newListHeading.textContent); 
             };
             newListDiv.appendChild(deleteListButton);
 
@@ -190,7 +182,7 @@ function loadData() {
             clearCompletedButton.textContent = 'Clear Completed';
             clearCompletedButton.onclick = function() {
                 clearCompletedTasks(newTaskList);
-                saveData(); // Save data after clearing completed tasks
+                saveData();
             };
             newListDiv.appendChild(clearCompletedButton);
 
@@ -199,11 +191,10 @@ function loadData() {
     }
 }
 
-// Load data when the page loads
 loadData(); 
 
   document.addEventListener("DOMContentLoaded", function(){
-    loadData(); // Load data when the DOM is loaded
+    loadData(); 
     document.querySelectorAll('.sidebar .nav-link').forEach(function(element){
         element.addEventListener('click', function (e) {
             let nextEl = element.nextElementSibling;
@@ -217,16 +208,16 @@ loadData();
                     mycollapse.hide();
                 } else {
                     mycollapse.show();
-                    // find other submenus with class=show
+                   
                     var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
-                    // if it exists, then close all of them
+                  
                     if(opened_submenu){
                         new bootstrap.Collapse(opened_submenu);
                     }
                 }
             }
-        }); // addEventListener
-    }) // forEach
+        }); 
+    }) 
 }); 
 
 function createTaskElement(taskName, completed = false) {
@@ -237,7 +228,7 @@ function createTaskElement(taskName, completed = false) {
     deleteButton.textContent = 'Delete';
     deleteButton.onclick = function() {
         deleteTask(li);
-        saveData(); // Save data after deleting task
+        saveData(); 
     };
     li.appendChild(deleteButton);
 
@@ -247,7 +238,7 @@ function createTaskElement(taskName, completed = false) {
         var newText = prompt("Enter new text for the task:", taskName);
         if (newText !== null && newText.trim() !== "") {
             li.textContent = newText.trim();
-            saveData(); // Save data after editing task
+            saveData(); 
         }
     };
     li.appendChild(editButton);
@@ -261,7 +252,7 @@ function createTaskElement(taskName, completed = false) {
         } else {
             li.style.textDecoration = 'none';
         }
-        saveData(); // Save data after marking task as completed
+        saveData(); 
     });
     li.appendChild(completeCheckbox);
 
@@ -286,7 +277,7 @@ function addNewList() {
             event.preventDefault();
             var newListName = newListNameInput.value.trim();
             if (newListName !== '') {
-                addListNameToTopNav(newListName); // Add list name to topNav
+                addListNameToTopNav(newListName); 
                 changeListName(newListNameInput);
             }
         }
@@ -315,8 +306,8 @@ function addNewList() {
     deleteListButton.textContent = 'Delete List';
     deleteListButton.onclick = function() {
         container.removeChild(newListDiv);
-        saveData(); // Save data after deleting list
-        removeListNameFromTopNav(newListHeading.textContent); // Remove list name from topNav
+        saveData(); 
+        removeListNameFromTopNav(newListHeading.textContent); 
     };
     newListDiv.appendChild(deleteListButton);
 
@@ -324,7 +315,7 @@ function addNewList() {
     clearCompletedButton.textContent = 'Clear Completed';
     clearCompletedButton.onclick = function() {
         clearCompletedTasks(newTaskList);
-        saveData(); // Save data after clearing completed tasks
+        saveData(); 
     };
     newListDiv.appendChild(clearCompletedButton);
 
@@ -332,28 +323,27 @@ function addNewList() {
     addTaskButton.textContent = 'Add Task';
     addTaskButton.onclick = function() {
         addTask(newTaskInput, newTaskList.id);
-        saveData(); // Save data after adding task
+        saveData(); 
     };
     newListDiv.appendChild(addTaskButton);
 
     container.appendChild(newListDiv);
 
-    saveData(); // Save data after adding list
+    saveData(); 
 }
 
 function addListNameToTopNav(listName) {
     var topNav = document.querySelector('.topNav');
-    // Remove existing buttons with the same list name
     topNav.querySelectorAll('.list-name[data-list-name="' + listName + '"]').forEach(function(button) {
         button.remove();
     });
-    // Add new button
+    
     var listNameButton = document.createElement('button');
     listNameButton.textContent = listName;
     listNameButton.classList.add('list-name');
-    listNameButton.setAttribute('data-list-name', listName); // Set custom attribute to store list name
+    listNameButton.setAttribute('data-list-name', listName); 
     listNameButton.onclick = function() {
-        // Toggle display of corresponding list
+    
         var container = document.querySelector('.container');
         container.querySelectorAll('.list-container').forEach(function(listContainer) {
             var nameInput = listContainer.querySelector('input[type="text"]');
@@ -365,7 +355,6 @@ function addListNameToTopNav(listName) {
     topNav.appendChild(listNameButton);
 }
 
-// Function to remove list name from topNav
 function removeListNameFromTopNav(listName) {
     var topNav = document.querySelector('.topNav');
     var listNameButtons = topNav.querySelectorAll('.list-name');

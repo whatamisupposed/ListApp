@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        body {
+        body {/* Style is black and gold. */
             background-color: black;
             color: gold;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding-top: 50px; /* Adjust as needed */
+            padding-top: 50px; 
         }
-        #passwordContainer {
+        #passwordContainer {/* Also style */
             border: 2px solid gold;
             padding: 20px;
-            margin: 0 auto; /* Center horizontally */
-            width: 300px; /* Set a fixed width */
+            margin: 0 auto; 
+            width: 300px; 
         }
         input[type="password"] {
-            display: block; /* Make the input element block-level */
-            width: calc(100% - 22px); /* Adjust width for padding and border */
-            margin-bottom: 10px; /* Add space between input and buttons */
+            display: block; /* Also style */
+            width: calc(100% - 22px); 
+            margin-bottom: 10px; 
             padding: 10px;
             border: none;
             border-bottom: 2px solid gold;
@@ -31,7 +31,7 @@
             box-sizing: border-box; 
         }
         button {
-            width: calc(50% - 5px); /* Adjust width for space between buttons */
+            width: calc(50% - 5px); /* Buttons and their style */
             padding: 10px;
             background-color: gold;
             border: none;
@@ -45,14 +45,14 @@
     </style>
 </head>
 <body>
-    <h1>Login</h1>
+    <h1>Login</h1> 
     <div id="passwordContainer">
         <input type="password" id="passwordInput" placeholder="Enter password...">
         <button onclick="enterPassword()">Enter Password</button>
         <button onclick="setPassword()">Set Password</button>
     </div>
     
-    <script>
+    <script> // password stuff
         document.addEventListener('DOMContentLoaded', function() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);

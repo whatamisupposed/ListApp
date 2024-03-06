@@ -90,3 +90,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Mon Mar 4 09:25:48 2024 -0700
 
     finished login design tried fixing index
+
+    commit e21b05c49d067ad8203548cb1bd47bbc924568fd (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Mar 6 09:53:28 2024 -0700
+
+    added picture and style to profile
