@@ -84,3 +84,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Feb 21 07:38:30 2024 -0700
 
     more edits to js
+
+    commit 9aeddb9d21f8fee451ec82a89e55f1d85efb9060 (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Mon Mar 4 09:25:48 2024 -0700
+
+    finished login design tried fixing index
