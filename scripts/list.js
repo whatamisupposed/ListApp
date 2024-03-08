@@ -132,7 +132,6 @@ function saveData() {
     });
     localStorage.setItem('todoData', JSON.stringify(data));
 }
-
 function loadData() {
     var data = JSON.parse(localStorage.getItem('todoData'));
     if (data) {
@@ -191,7 +190,9 @@ function loadData() {
     }
 }
 
-loadData(); 
+document.addEventListener('DOMContentLoaded', function() {
+    loadData();
+});
 
   document.addEventListener("DOMContentLoaded", function(){
     loadData(); 
@@ -219,7 +220,6 @@ loadData();
         }); 
     }) 
 }); 
-
 function createTaskElement(taskName, completed = false) {
     var li = document.createElement('li');
     li.textContent = taskName;
@@ -238,7 +238,7 @@ function createTaskElement(taskName, completed = false) {
         var newText = prompt("Enter new text for the task:", taskName);
         if (newText !== null && newText.trim() !== "") {
             li.textContent = newText.trim();
-            saveData(); 
+            saveData(); // Save edited data
         }
     };
     li.appendChild(editButton);
@@ -261,6 +261,136 @@ function createTaskElement(taskName, completed = false) {
     }
 
     return li;
+}
+function editTask(taskElement) {
+    var newText = prompt("Enter new text for the task:", taskElement.textContent);
+    if (newText !== null && newText.trim() !== "") {
+        taskElement.textContent = newText.trim();
+        saveData(); // Save edited data
+    }
+}
+var editButton = document.createElement('button');
+editButton.textContent = 'Edit';
+editButton.onclick = function() {
+    var newText = prompt("Enter new text for the task:", taskName);
+    if (newText !== null && newText.trim() !== "") {
+        li.textContent = newText.trim();
+        saveData(); // Save edited data
+    }
+};
+li.appendChild(editButton);
+function createTaskElement(taskName, completed = false) {
+    var li = document.createElement('li');
+    li.textContent = taskName;
+
+    var deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.onclick = function() {
+        deleteTask(li);
+        saveData(); 
+    };
+    li.appendChild(deleteButton);
+
+    var editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
+    editButton.onclick = function() {
+        editTask(li);
+    };
+    li.appendChild(editButton);
+
+    var completeCheckbox = document.createElement('input');
+    completeCheckbox.type = 'checkbox';
+    completeCheckbox.checked = completed;
+    completeCheckbox.addEventListener('change', function() {
+        if (completeCheckbox.checked) {
+            li.style.textDecoration = 'line-through';
+        } else {
+            li.style.textDecoration = 'none';
+        }
+        saveData(); 
+    });
+    li.appendChild(completeCheckbox);
+
+    if (completed) {
+        li.style.textDecoration = 'line-through';
+    }
+
+    return li;
+}
+
+function loadData() {
+    var data = JSON.parse(localStorage.getItem('todoData'));
+    if (data) {
+        var container = document.querySelector('.container');
+        container.innerHTML = ''; // Clear container before loading
+
+        data.lists.forEach(function(listData) {
+            var newListDiv = document.createElement('div');
+            newListDiv.classList.add('list-container');
+            
+            var newListNameInput = document.createElement('input');
+            newListNameInput.type = 'text';
+            newListNameInput.value = listData.name;
+            newListNameInput.addEventListener('input', function() {
+                saveData(); 
+            });
+            newListDiv.appendChild(newListNameInput);
+
+            var newListHeading = document.createElement('h2');
+            newListHeading.textContent = listData.name;
+            newListDiv.appendChild(newListHeading);
+
+            var newTaskList = document.createElement('ul');
+            listData.tasks.forEach(function(taskObj) {
+                var li = createTaskElement(taskObj.name, taskObj.completed);
+                newTaskList.appendChild(li);
+            });
+            newListDiv.appendChild(newTaskList);
+
+            var deleteListButton = document.createElement('button');
+            deleteListButton.textContent = 'Delete List';
+            deleteListButton.onclick = function() {
+                container.removeChild(newListDiv);
+                saveData(); 
+                removeListNameFromTopNav(newListHeading.textContent); 
+            };
+            newListDiv.appendChild(deleteListButton);
+
+            var clearCompletedButton = document.createElement('button');
+            clearCompletedButton.textContent = 'Clear Completed';
+            clearCompletedButton.onclick = function() {
+                clearCompletedTasks(newTaskList);
+                saveData();
+            };
+            newListDiv.appendChild(clearCompletedButton);
+
+            container.appendChild(newListDiv);
+
+            addListNameToTopNav(listData.name); // editing lists are annoying
+        });
+    }
+}
+
+function saveData() {
+    var container = document.querySelector('.container');
+    var data = {
+        lists: []
+    };
+    container.querySelectorAll('.list-container').forEach(function(listContainer) {
+        var listData = {
+            name: listContainer.querySelector('input[type="text"]').value.trim(),
+            tasks: []
+        };
+        listContainer.querySelectorAll('ul li').forEach(function(task) {
+            var taskObj = {
+                name: task.textContent, // Update to include task text
+                completed: task.querySelector('input[type="checkbox"]').checked
+            };
+            listData.tasks.push(taskObj);
+        });
+        data.lists.push(listData);
+    });
+    localStorage.setItem('todoData', JSON.stringify(data));
 }
 
 function addNewList() {

@@ -96,3 +96,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Mar 6 09:53:28 2024 -0700
 
     added picture and style to profile
+
+    commit 89e876330cd378528b7158ccff8c41e1943987a0 (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Wed Mar 6 10:14:54 2024 -0700
+
+    added comments

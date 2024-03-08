@@ -1,24 +1,40 @@
+/* Added CSS for borders, button hover, and text color */
 .topNav {
-    width: 500px; /* Style for index.hmtl*/
-    background-color: #f0f0f0; 
-    padding: 10px; 
+    width: 500px;
+    background-color: #f0f0f0;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    border: 2px solid gold; /* Adding border with gold color */
 }
 
 .topNav .list-name {
-    margin-right: 10px; 
+    margin-right: 10px;
     cursor: pointer;
-    padding: 5px 10px; 
-    background-color: #e0e0e0; 
-    border-radius: 5px; 
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    color: gold; /* Setting text color to gold */
 }
 
 .topNav .list-name:hover {
-    background-color: #c0c0c0; 
+    background-color: #b8860b; /* Darker shade of gold on hover */
 }
 
 .container {
-    margin-top: 20px; 
+    margin-top: 20px;
+    border: 2px solid gold; /* Adding border with gold color */
+    padding: 10px; 
+}
+
+/* Style for buttons */
+.btn {
+    color: gold; /* Setting text color to gold */
+    border-color: gold; /* Setting border color to gold */
+}
+
+.btn:hover {
+    background-color: #b8860b; /* Darker shade of gold on hover */
+    border-color: #b8860b; /* Darker shade of gold on hover */
 }

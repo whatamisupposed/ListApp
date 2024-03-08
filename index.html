@@ -6,15 +6,95 @@
     <title>To-Do List Application</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+body {
+    background-color: black; /* Setting body background to black */
+    color: black; /* Setting text color to black */
+}
+
+input[type="text"] {
+    color: gold; /* Setting text color to gold */
+    border: 1px solid gold; /* Setting border color to gold */
+    background-color: black; /* Setting background color to black */
+}
+
+.btn,
+button {
+    color: gold !important; /* Setting text color to gold */
+    border-color: gold !important; /* Setting border color to gold */
+    background-color: black !important; /* Setting background color to black */
+}
+
+.btn:hover,
+button:hover {
+    background-color: goldenrod !important; /* Darker shade of gold on hover */
+    border-color: goldenrod !important; /* Darker shade of gold on hover */
+}
+
+.topNav {
+    background-color: black; /* Setting background to black */
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Start elements from the left */
+    border: 2px solid gold; /* Adding gold border */
+}
+
+.topNav .list-name {
+    margin-right: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: transparent; /* Making background transparent */
+    border-radius: 5px;
+    color: gold; /* Setting text color to gold */
+}
+
+.topNav .list-name:hover {
+    background-color: goldenrod; /* Darker shade of gold on hover */
+}
+
+.container {
+    margin-top: 20px;
+    border: 2px solid gold; /* Adding gold border */
+    padding: 10px; /* Adding padding */
+    background-color: black; /* Setting background to black */
+}
+
+.list-container,
+.list-container li {
+    color: gold; /* Setting text color to gold */
+}
+
+.ml-3 {
+    margin-right: 20px; /* Adding extra margin to the right of the button */
+}
+
+/* Styling the check mark for clearing completed tasks */
+.clear-completed-button::before {
+    content: "\2714"; /* Unicode for check mark */
+    color: gold; /* Setting check mark color to gold */
+    font-size: 1.2em; /* Adjusting the size of the check mark */
+    margin-right: 5px; /* Adding margin to the right of the check mark */
+}
+
+.clear-completed-button:hover::before {
+    color: black; /* Setting check mark color to black on hover */
+}
+
+.topNav .btn {
+    margin-left: 0; /* Remove any left margin */
+    margin-right: 10px; /* Add margin to the right of the button */
+}
+    </style>
 </head>
 <body>
-    <button onclick="addNewList()" class="btn btn-primary ml-3">Add Another List</button>
     <div class="topNav">
-      
+        <button onclick="addNewList()" class="btn btn-primary ml-auto">Add Another List</button>
     </div>
     <div class="container">
        
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

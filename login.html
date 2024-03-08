@@ -5,51 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        body {/* Style is black and gold. */
-            background-color: black;
-            color: gold;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 50px; 
-        }
-        #passwordContainer {/* Also style */
-            border: 2px solid gold;
-            padding: 20px;
-            margin: 0 auto; 
-            width: 300px; 
-        }
-        input[type="password"] {
-            display: block; /* Also style */
-            width: calc(100% - 22px); 
-            margin-bottom: 10px; 
-            padding: 10px;
-            border: none;
-            border-bottom: 2px solid gold;
-            background-color: black;
-            color: gold;
-            font-size: 16px;
-            box-sizing: border-box; 
-        }
-        button {
-            width: calc(50% - 5px); /* Buttons and their style */
-            padding: 10px;
-            background-color: gold;
-            border: none;
-            color: black;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: darkgoldenrod;
-        }
-    </style>
+body {
+    background-color: black; /* Setting body background to black */
+    color: gold; /* Setting text color to gold */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Making the page full height */
+}
+
+.container {
+    border: 2px solid gold; /* Adding gold border */
+    padding: 20px; /* Adding padding */
+    background-color: black; /* Setting background to black */
+    text-align: center; /* Center aligning content */
+}
+
+input[type="password"] {
+    color: gold; /* Setting text color to gold */
+    border: none; /* Remove default border */
+    background-color: black; /* Setting background color to black */
+    border-bottom: 2px solid gold; /* Setting bottom border to gold */
+    padding: 10px; /* Adding padding */
+    margin-bottom: 20px; /* Adding margin */
+    outline: none; /* Remove outline */
+    width: 70%; /* Setting input width to 100% */
+}
+
+input[type="password"]:focus {
+    border-bottom: 2px solid goldenrod; /* Changing border color on focus */
+}
+
+.btn,
+button {
+    color: gold; /* Setting text color to gold */
+    border: 1px solid gold; /* Setting border color to gold */
+    background-color: black; /* Setting background color to black */
+    padding: 10px 20px; /* Adding padding */
+    cursor: pointer; /* Changing cursor to pointer */
+}
+
+.btn:hover,
+button:hover {
+    color: black; /* Change text color to black on hover */
+    background-color: goldenrod; /* Darker shade of gold on hover */
+    border-color: goldenrod; /* Darker shade of gold on hover */
+}
+
+.profile-info {
+    color: gold; /* Setting text color to gold */
+    margin-top: 10px; /* Adding margin */
+}
+</style>
 </head>
 <body>
-    <h1>Login</h1> 
-    <div id="passwordContainer">
-        <input type="password" id="passwordInput" placeholder="Enter password...">
-        <button onclick="enterPassword()">Enter Password</button>
-        <button onclick="setPassword()">Set Password</button>
+    <div class="container">
+        <h1>Login</h1> 
+        <div id="passwordContainer">
+            <input type="password" id="passwordInput" placeholder="Enter password...">
+            <button onclick="enterPassword()" style="margin-right: 10px;">Enter Password</button>
+            <button onclick="setPassword()">Set Password</button>
+        </div>
+        <div id="profileName" class="profile-info"></div>
     </div>
     
     <script> // password stuff
@@ -58,9 +75,8 @@
             const urlParams = new URLSearchParams(queryString);
             const profile = urlParams.get('profile');
             if (profile) {
-                const profileNameElement = document.createElement('p');
+                const profileNameElement = document.getElementById('profileName');
                 profileNameElement.textContent = `Logging in as: ${decodeURIComponent(profile)}`;
-                document.body.appendChild(profileNameElement);
             }
         });
 
