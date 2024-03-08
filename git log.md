@@ -102,3 +102,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Wed Mar 6 10:14:54 2024 -0700
 
     added comments
+
+    commit 84f6c6758de6590c9e43434b2ae3ff165a1272c8 (HEAD -> main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Fri Mar 8 07:41:04 2024 -0700
+
+    added style to index. fixed login which i ruined.
