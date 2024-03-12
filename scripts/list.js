@@ -1,4 +1,4 @@
-function addNewList() { // js for index.html
+function addNewList() {
     var container = document.querySelector('.container');
     var newListDiv = document.createElement('div');
 
@@ -10,7 +10,11 @@ function addNewList() { // js for index.html
     newListNameInput.addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            changeListName(newListNameInput);
+            var newListName = newListNameInput.value.trim();
+            if (newListName !== '') {
+                addListNameToTopNav(newListName); 
+                changeListName(newListNameInput);
+            }
         }
     });
     newListDiv.appendChild(newListNameInput);
@@ -38,6 +42,7 @@ function addNewList() { // js for index.html
     deleteListButton.onclick = function() {
         container.removeChild(newListDiv);
         saveData(); 
+        removeListNameFromTopNav(newListHeading.textContent); 
     };
     newListDiv.appendChild(deleteListButton);
 
@@ -59,7 +64,124 @@ function addNewList() { // js for index.html
 
     container.appendChild(newListDiv);
 
+    // Add event listener for the "Add Task" button
+    addTaskButton.addEventListener('click', function() {
+        addTask(newTaskInput, newTaskList.id);
+        saveData(); 
+    });
+
+    // Ensure event listeners for editing, deleting, and completing tasks are attached
+    attachTaskEventListeners(newTaskList);
+
     saveData(); 
+}function addNewList() {
+    var container = document.querySelector('.container');
+    var newListDiv = document.createElement('div');
+
+    newListDiv.classList.add('list-container');
+
+    var newListNameInput = document.createElement('input');
+    newListNameInput.type = 'text';
+    newListNameInput.placeholder = 'Enter list name...';
+    newListNameInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            var newListName = newListNameInput.value.trim();
+            if (newListName !== '') {
+                addListNameToTopNav(newListName); 
+                changeListName(newListNameInput);
+            }
+        }
+    });
+    newListDiv.appendChild(newListNameInput);
+
+    var newTaskInput = document.createElement('input');
+    newTaskInput.type = 'text';
+    newTaskInput.placeholder = 'Enter a task...';
+    newTaskInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addTask(newTaskInput, newTaskList.id);
+        }
+    });
+    newListDiv.appendChild(newTaskInput);
+
+    var newListHeading = document.createElement('h2');
+    newListHeading.textContent = newListNameInput.value || 'New List';
+    newListDiv.appendChild(newListHeading);
+
+    var newTaskList = document.createElement('ul');
+    newTaskList.id = 'taskList_' + Date.now(); 
+    newListDiv.appendChild(newTaskList);
+    
+    var deleteListButton = document.createElement('button');
+    deleteListButton.textContent = 'Delete List';
+    deleteListButton.onclick = function() {
+        container.removeChild(newListDiv);
+        saveData(); 
+        removeListNameFromTopNav(newListHeading.textContent); 
+    };
+    newListDiv.appendChild(deleteListButton);
+
+    var clearCompletedButton = document.createElement('button');
+    clearCompletedButton.textContent = 'Clear Completed';
+    clearCompletedButton.onclick = function() {
+        clearCompletedTasks(newTaskList);
+        saveData(); 
+    };
+    newListDiv.appendChild(clearCompletedButton);
+
+    var addTaskButton = document.createElement('button');
+    addTaskButton.textContent = 'Add Task';
+    addTaskButton.onclick = function() {
+        addTask(newTaskInput, newTaskList.id);
+        saveData(); 
+    };
+    newListDiv.appendChild(addTaskButton);
+
+    container.appendChild(newListDiv);
+
+    // Add event listener for the "Add Task" button
+    addTaskButton.addEventListener('click', function() {
+        addTask(newTaskInput, newTaskList.id);
+        saveData(); 
+    });
+
+    // Ensure event listeners for editing, deleting, and completing tasks are attached
+    attachTaskEventListeners(newTaskList);
+
+    saveData(); 
+}
+
+function attachTaskEventListeners(taskList) {
+    taskList.querySelectorAll('li').forEach(function(task) {
+        var editButton = task.querySelector('button.edit-task');
+        if (editButton) {
+            editButton.addEventListener('click', function() {
+                editTask(task);
+                saveData();
+            });
+        }
+
+        var deleteButton = task.querySelector('button.delete-task');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                deleteTask(task);
+                saveData();
+            });
+        }
+
+        var completeCheckbox = task.querySelector('input[type="checkbox"]');
+        if (completeCheckbox) {
+            completeCheckbox.addEventListener('change', function() {
+                if (completeCheckbox.checked) {
+                    task.style.textDecoration = 'line-through';
+                } else {
+                    task.style.textDecoration = 'none';
+                }
+                saveData();
+            });
+        }
+    });
 }
 
 function addTask(taskInput, taskListId) {
@@ -192,34 +314,51 @@ function loadData() {
 
 document.addEventListener('DOMContentLoaded', function() {
     loadData();
+
+    document.querySelector('.container').addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('add-task')) {
+            var listContainer = event.target.closest('.list-container');
+            if (listContainer) {
+                var newTaskInput = listContainer.querySelector('input[type="text"]');
+                var taskList = listContainer.querySelector('ul');
+                addTask(newTaskInput, taskList.id);
+                saveData(); 
+            }
+        }
+    });
+
+    // Add event listeners for editing, deleting, and completing tasks
+    document.querySelectorAll('.container .list-container ul li').forEach(function(task) {
+        var editButton = task.querySelector('button.edit-task');
+        if (editButton) {
+            editButton.addEventListener('click', function() {
+                editTask(task);
+                saveData();
+            });
+        }
+
+        var deleteButton = task.querySelector('button.delete-task');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                deleteTask(task);
+                saveData();
+            });
+        }
+
+        var completeCheckbox = task.querySelector('input[type="checkbox"]');
+        if (completeCheckbox) {
+            completeCheckbox.addEventListener('change', function() {
+                if (completeCheckbox.checked) {
+                    task.style.textDecoration = 'line-through';
+                } else {
+                    task.style.textDecoration = 'none';
+                }
+                saveData();
+            });
+        }
+    });
 });
 
-  document.addEventListener("DOMContentLoaded", function(){
-    loadData(); 
-    document.querySelectorAll('.sidebar .nav-link').forEach(function(element){
-        element.addEventListener('click', function (e) {
-            let nextEl = element.nextElementSibling;
-            let parentEl  = element.parentElement;	
-  
-            if(nextEl) {
-                e.preventDefault();	
-                let mycollapse = new bootstrap.Collapse(nextEl);
-                
-                if(nextEl.classList.contains('show')){
-                    mycollapse.hide();
-                } else {
-                    mycollapse.show();
-                   
-                    var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
-                  
-                    if(opened_submenu){
-                        new bootstrap.Collapse(opened_submenu);
-                    }
-                }
-            }
-        }); 
-    }) 
-}); 
 function createTaskElement(taskName, completed = false) {
     var li = document.createElement('li');
     li.textContent = taskName;
@@ -340,6 +479,11 @@ function loadData() {
             newListHeading.textContent = listData.name;
             newListDiv.appendChild(newListHeading);
 
+            var newTaskInput = document.createElement('input'); // Create task input
+            newTaskInput.type = 'text'; // Set input type
+            newTaskInput.placeholder = 'Enter a task...'; // Set placeholder
+            newListDiv.appendChild(newTaskInput); // Append input to list container
+
             var newTaskList = document.createElement('ul');
             listData.tasks.forEach(function(taskObj) {
                 var li = createTaskElement(taskObj.name, taskObj.completed);
@@ -364,9 +508,27 @@ function loadData() {
             };
             newListDiv.appendChild(clearCompletedButton);
 
+            var addTaskButton = document.createElement('button');
+            addTaskButton.textContent = 'Add Task';
+            addTaskButton.onclick = function() {
+                addTask(newTaskInput, newTaskList.id);
+                saveData(); 
+            };
+            newListDiv.appendChild(addTaskButton);
+
+            // Add event listener for the "Add Task" button
+            addTaskButton.addEventListener('click', function() {
+                addTask(newTaskInput, newTaskList.id);
+                saveData(); 
+            });
+
             container.appendChild(newListDiv);
 
-            addListNameToTopNav(listData.name); // editing lists are annoying
+            // Attach event listeners for editing, deleting, and completing tasks
+            attachTaskEventListeners(newTaskList);
+
+            // Restore the value of task input based on saved data
+            newTaskInput.value = ''; // Clear the input initially
         });
     }
 }

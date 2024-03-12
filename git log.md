@@ -108,3 +108,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Fri Mar 8 07:41:04 2024 -0700
 
     added style to index. fixed login which i ruined.
+
+    commit b01ea81a17b0ffec3b1adcf1698553549d8a9cfb (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Fri Mar 8 08:35:46 2024 -0700
+
+    added more comments fixed some color
