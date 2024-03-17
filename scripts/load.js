@@ -1,3 +1,25 @@
+function saveData() {
+    var container = document.querySelector('.container');
+    var data = {
+        lists: []
+    };
+    container.querySelectorAll('.list-container').forEach(function(listContainer) {
+        var listData = {
+            name: listContainer.querySelector('input[type="text"]').value.trim(),
+            tasks: []
+        };
+        listContainer.querySelectorAll('ul li').forEach(function(task) {
+            var taskObj = {
+                name: task.querySelector('span').textContent,
+                completed: task.querySelector('input[type="checkbox"]').checked
+            };
+            listData.tasks.push(taskObj);
+        });
+        data.lists.push(listData);
+    });
+    localStorage.setItem('todoData', JSON.stringify(data));
+}
+
 function loadData() {
     var data = JSON.parse(localStorage.getItem('todoData'));
     if (data) {
@@ -21,10 +43,10 @@ function loadData() {
             newListHeading.textContent = listData.name;
             newListDiv.appendChild(newListHeading);
 
-            var newTaskInput = document.createElement('input'); // Create task input
-            newTaskInput.type = 'text'; // Set input type
-            newTaskInput.placeholder = 'Enter a task...'; // Set placeholder
-            newListDiv.appendChild(newTaskInput); // Append input to list container
+            var newTaskInput = document.createElement('input');
+            newTaskInput.type = 'text';
+            newTaskInput.placeholder = 'Enter a task...';
+            newListDiv.appendChild(newTaskInput);
 
             var newTaskList = document.createElement('ul');
             listData.tasks.forEach(function(taskObj) {
@@ -69,7 +91,8 @@ function loadData() {
     }
 }
 
-function saveData() {
+
+function saveData2() {
     var container = document.querySelector('.container');
     var data = {
         lists: []

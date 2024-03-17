@@ -22,61 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function loadDataForCurrentUser() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const profileName = urlParams.get('profile');
-
-    let userData = loadTodoData(profileName);
-
-    if (userData && userData.lists) {
-        var container = document.querySelector('.container');
-        container.innerHTML = '';
-
-        userData.lists.forEach(function(listData) {
-            var newListDiv = createListContainer(listData);
-            container.appendChild(newListDiv);
-            // Attach event listeners and perform other necessary operations
-        });
-    }
-
-    // Restore input value after page reload
-    const addTaskInputs = document.querySelectorAll('.list-container input[type="text"]');
-    addTaskInputs.forEach(input => {
-        const listId = input.nextElementSibling.id;
-        const storedTaskInput = localStorage.getItem(`taskInput_${profileName}_${listId}`);
-        if (storedTaskInput) {
-            input.value = storedTaskInput;
-        }
-    });
-}
-
-function saveDataForCurrentUser() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const profileName = urlParams.get('profile');
-
-    var data = {
-        lists: []
-    };
-    var container = document.querySelector('.container');
-    container.querySelectorAll('.list-container').forEach(function(listContainer) {
-        var listData = {
-            name: listContainer.querySelector('input[type="text"]').value.trim(),
-            tasks: []
-        };
-        listContainer.querySelectorAll('ul li').forEach(function(task) {
-            var taskObj = {
-                name: task.textContent,
-                completed: task.querySelector('input[type="checkbox"]').checked
-            };
-            listData.tasks.push(taskObj);
-        });
-        data.lists.push(listData);
-    });
-
-    localStorage.setItem(`todoData_${profileName}`, JSON.stringify(data)); // Use profile-specific key
-    console.log(`Data saved for profile: ${profileName}`, data); // Log saved data
-}
-
 function loadTodoData(profileName) {
     let todoData = JSON.parse(localStorage.getItem(`todoData_${profileName}`)) || { lists: [] };
     return todoData;
