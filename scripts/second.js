@@ -60,8 +60,6 @@ function editTask(li) {
     }
 }
 
-
-
 // Attach event listener to the container for edit button click event
 document.querySelector('.container').addEventListener('click', function(event) {
     if (event.target && event.target.classList.contains('edit')) {
@@ -180,7 +178,6 @@ function loadTasksForCurrentUser() {
         attachTaskEventListeners(taskList);
     });
 }
-
 // Call the function to load tasks for the current user
 loadTasksForCurrentUser();
 

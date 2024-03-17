@@ -126,3 +126,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Sat Mar 16 20:57:41 2024 -0600
 
     made edit button work. organised js added comments
+
+    commit d9157be2ef573ecbbdfe17bb70076a2e033625a9 (HEAD -> main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Sat Mar 16 21:00:35 2024 -0600
+
+    added style page

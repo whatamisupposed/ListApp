@@ -38,6 +38,8 @@ function loadDataForCurrentUser() {
             // Attach event listeners and perform other necessary operations
         });
     }
+
+    // Restore input value after page reload
     const addTaskInputs = document.querySelectorAll('.list-container input[type="text"]');
     addTaskInputs.forEach(input => {
         const listId = input.nextElementSibling.id;
@@ -47,11 +49,6 @@ function loadDataForCurrentUser() {
         }
     });
 }
-
-// Add event listener for the task input to save its value
-newTaskInput.addEventListener('input', function() {
-    localStorage.setItem(`taskInput_${profileName}_${newTaskList.id}`, newTaskInput.value);
-});
 
 function saveDataForCurrentUser() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -90,7 +87,6 @@ window.addEventListener('beforeunload', function() {
 });
 
 // Add event listeners for drag-and-drop functionality
-
 function attachTaskEventListeners(container) {
     container.querySelectorAll('.list-container ul li').forEach(function(task) {
         task.setAttribute('draggable', true); // Make tasks draggable
@@ -143,7 +139,6 @@ function getDragAfterElement(task, y) {
         }
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
-
 
 function createListContainer(listData) {
     var newListDiv = document.createElement('div');
