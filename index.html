@@ -9,30 +9,30 @@
 <style>
     body {
     background-color: rgb(15, 15, 15); /* Setting body background to a gray so black stand out more*/
-    color: black; 
+    color: black; /* text is black */
 }
 
 input[type="text"] {
-    color: gold; /* making sure all the input styles match the rest of the style of the page. */
-    border: 1px solid gold; 
-    background-color: black; 
+    color: gold; /* text is gold making sure all the input styles match the rest of the style of the page. */
+    border: 1px solid gold; /* border is gold */
+    background-color: black; /* background is black */
 }
 
 .btn,
 button {
-    color: gold !important; /* button match the rest. important is there because code is wierd and stubborn, and this is what worked. */
-    border-color: gold !important; 
-    background-color: black !important; 
+    color: gold !important; /* button match the rest. important is there to make it a priority  */
+    border-color: gold !important; /* border is gold */
+    background-color: black !important; /* background is black */
 }
 
 .btn:hover,
 button:hover {
     background-color: goldenrod !important; /* Darker shade of gold for hover */
-    border-color: goldenrod !important; 
+    border-color: rgb(184, 140, 28) !important; /* darker shade of gold for hover */
 }
 
 .topNav {
-    background-color: black; 
+    background-color: black; /* background is black */
     padding: 10px;
     display: flex;
     align-items: center;
@@ -93,13 +93,15 @@ button:hover {
         <button onclick="addNewList()" class="btn btn-primary ml-auto">Add Another List</button>
     </div>
     <div class="container">
-       
+        
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scripts/list.js"></script>
-
+    <script src="scripts/second.js"></script>
+    <script src="scripts/third.js"></script>
+    <script src="scripts/load.js"></script>
 </body>
 </html>

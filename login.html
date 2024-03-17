@@ -7,54 +7,54 @@
     <style>
 body {
     background-color: rgb(15, 15, 15); /* gray so black stuff stands out */
-    color: gold; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
+    color: gold; /* turns text gold */
+    display: flex; /* displays it in an orderly manner */
+    justify-content: center;  /* displays it in the middle (top to bottom) */
+    align-items: center;/* displays it in the middle (left to right) */
+    height: 100vh; /* spaces stuff out */
 }
 
 .container {
-    border: 2px solid gold; /* I like borders */
-    padding: 20px;
-    background-color: black; 
-    text-align: center; 
+    border: 2px solid gold; /* I like gold borders */
+    padding: 20px; /* spaces stuff out */
+    background-color: black; /* background is black, makes gold stand out */
+    text-align: center; /* displays text in middle (left to right) */
 }
 
 input[type="password"] {
     color: gold; /* the input matches the rest of the style of the page. */
-    border: none; 
-    background-color: black; 
-    border-bottom: 2px solid gold; 
-    padding: 10px;
-    margin-bottom: 20px;
-    outline: none; 
-    width: 70%; 
+    border: none;  /* nothing except the bottom has a gold line */
+    background-color: black;  /* background is black */
+    border-bottom: 2px solid gold;  /* nothing except the bottom has a gold line */
+    padding: 10px;/* space to improve style */
+    margin-bottom: 20px;/* space to improve style */
+    outline: none; /* it sure is something */
+    width: 70%; /* space to improve style */
 }
 
 input[type="password"]:focus {
-    border-bottom: 2px solid goldenrod; 
+    border-bottom: 2px solid goldenrod; /* borders only at bottom turns from gold to goldenrod when input area is pressed on */
 }
 
 .btn,
 button {
-    color: gold; 
-    border: 1px solid gold; 
-    background-color: black;
-    padding: 10px 20px; 
-    cursor: pointer; 
+    color: gold; /* text is gold */
+    border: 1px solid gold; /* border is gold */
+    background-color: black; /* background is black */
+    padding: 10px 20px;  /* space to improve style */
+    cursor: pointer; /* sure is something */
 }
 
 .btn:hover,
 button:hover {
     color: black; /* Black stands out better then the gold on goldenrod */
-    background-color: goldenrod; 
-    border-color: goldenrod; 
+    background-color: goldenrod; /* hovering over button turns it from gold to goldenrod */
+    border-color: rgb(184, 140, 28); /* hovering over border turns it from gold to darker gold */
 }
 
 .profile-info {
-    color: gold; 
-    margin-top: 10px; 
+    color: gold; /* text is gold */
+    margin-top: 10px; /* space to improve style */
 }
 </style>
 </head>
@@ -69,7 +69,7 @@ button:hover {
         <div id="profileName" class="profile-info"></div>
     </div>
     
-    <script> // password stuff
+    <script> 
         document.addEventListener('DOMContentLoaded', function() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
@@ -78,7 +78,7 @@ button:hover {
                 const profileNameElement = document.getElementById('profileName');
                 profileNameElement.textContent = `Logging in as: ${decodeURIComponent(profile)}`;
             }
-        });
+        });// Pull profile name after page listens
 
         function enterPassword() {
             const passwordInput = document.getElementById('passwordInput').value;
@@ -95,15 +95,24 @@ button:hover {
         }
 
         function setPassword() {
-            const passwordInput = document.getElementById('passwordInput').value;
-            const profile = document.location.search.replace(/^.*?\=/,'');
-
-            const profiles = JSON.parse(localStorage.getItem('userProfiles'));
-            const profileObj = profiles.find(prof => prof.name === profile);
-
-            profileObj.password = passwordInput;
-            localStorage.setItem('userProfiles', JSON.stringify(profiles));
-        }
+    const passwordInput = document.getElementById('passwordInput').value;
+    const profileName = document.location.search.replace(/^.*?\=/,'');
+    // Check if this profile already exists
+    let profiles = JSON.parse(localStorage.getItem('userProfiles')) || [];
+    let profileObj = profiles.find(prof => prof.name === profileName);
+    if (!profileObj) {
+        // If the profile doesn't exist, create a new one
+        profileObj = { name: profileName, password: passwordInput };
+        profiles.push(profileObj);
+    } else {
+        // If it exists, just update the password
+        profileObj.password = passwordInput;
+    }
+    // Save the updated profiles list
+    localStorage.setItem('userProfiles', JSON.stringify(profiles));
+    // Create a separate storage for the user's to-do data
+    localStorage.setItem(`todoData_${profileName}`, JSON.stringify([])); // Initialize with an empty array
+}
     </script>
 </body>
 </html>
