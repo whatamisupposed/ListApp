@@ -11,6 +11,7 @@ function loadData() {
             var newListNameInput = document.createElement('input');
             newListNameInput.type = 'text';
             newListNameInput.value = listData.name;
+            addListNameToTopNav(listData.name);
             newListNameInput.addEventListener('input', function() {
                 saveData(); 
             });
@@ -81,8 +82,9 @@ function saveData() {
             tasks: []
         };
         listContainer.querySelectorAll('ul li').forEach(function(task) {
+            var taskNameSpan = task.querySelector('span'); // Target the span containing the task name
             var taskObj = {
-                name: task.textContent, // Update to include task text
+                name: taskNameSpan.textContent, // Use the text content of the span
                 completed: task.querySelector('input[type="checkbox"]').checked
             };
             listData.tasks.push(taskObj);

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    loadDataForCurrentUser(); // Load data for the current user, including tasks
-    loadTasksForCurrentUser(); // Attach event listeners to the loaded tasks
+    loadData(); // Load data for the current user, including tasks
+   // loadTasksForCurrentUser(); // Attach event listeners to the loaded tasks
 
     document.querySelector('.container').addEventListener('click', function(event) {
         if (event.target && event.target.classList.contains('add-task')) {
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 var newTaskInput = listContainer.querySelector('input[type="text"]');
                 var taskList = listContainer.querySelector('ul');
                 addTask(newTaskInput, taskList.id);
-                saveDataForCurrentUser(); // Save data after adding a task
+                saveData(); // Save data after adding a task
             }
         }
     });
@@ -82,10 +82,6 @@ function loadTodoData(profileName) {
     return todoData;
 }
 
-window.addEventListener('beforeunload', function() {
-    saveDataForCurrentUser();
-});
-
 // Add event listeners for drag-and-drop functionality
 function attachTaskEventListeners(container) {
     container.querySelectorAll('.list-container ul li').forEach(function(task) {
@@ -148,7 +144,7 @@ function createListContainer(listData) {
     newListNameInput.type = 'text';
     newListNameInput.value = listData.name;
     newListNameInput.addEventListener('input', function() {
-        saveDataForCurrentUser();
+        saveData();
     });
     newListDiv.appendChild(newListNameInput);
 
@@ -163,7 +159,7 @@ function createListContainer(listData) {
     deleteListButton.textContent = 'Delete List';
     deleteListButton.onclick = function() {
         newListDiv.remove();
-        saveDataForCurrentUser();
+        saveData();
     };
     newListDiv.appendChild(deleteListButton);
 
@@ -171,15 +167,16 @@ function createListContainer(listData) {
     clearCompletedButton.textContent = 'Clear Completed';
     clearCompletedButton.onclick = function() {
         clearCompletedTasks(newTaskList);
-        saveDataForCurrentUser();
+        saveData();
     };
     newListDiv.appendChild(clearCompletedButton);
 
+  
     var addTaskButton = document.createElement('button');
     addTaskButton.textContent = 'Add Task';
     addTaskButton.onclick = function() {
         addTask(newTaskInput, newTaskList.id);
-        saveDataForCurrentUser();
+        saveData(); 
     };
     newListDiv.appendChild(addTaskButton);
 

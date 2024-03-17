@@ -132,3 +132,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Sat Mar 16 21:00:35 2024 -0600
 
     added style page
+
+    commit f94c0c67c435a063e05f1dcc94d5d67971a0fb35 (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Sat Mar 16 21:41:41 2024 -0600
+
+    fixed reloading page for edits

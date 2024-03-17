@@ -118,6 +118,7 @@ function addListNameToTopNav(listName) {
         });
     };
     topNav.appendChild(listNameButton);
+    saveData();
 }
 
 function removeListNameFromTopNav(listName) {
