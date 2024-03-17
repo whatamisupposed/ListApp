@@ -1,0 +1,78 @@
+body {
+    background-color: rgb(15, 15, 15); /* Setting body background to a gray so black stand out more*/
+}
+
+input[type="text"] {
+    color: gold; /* text is gold making sure all the input styles match the rest of the style of the page. */
+    border: 1px solid gold; /* border is gold */
+    background-color: black; /* background is black */
+}
+
+.btn,
+button {
+    color: gold !important; /* button match the rest. important is there to make it a priority  */
+    border-color: gold !important; /* border is gold */
+    background-color: black !important; /* background is black */
+}
+
+.btn:hover,
+button:hover {
+    background-color: goldenrod !important; /* Darker shade of gold for hover */
+    border-color: rgb(184, 140, 28) !important; /* darker shade of gold for hover */
+}
+
+.topNav {
+    background-color: black; /* background is black */
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Making the button and toggle stuff start on the left */
+    border: 2px solid gold; 
+}
+
+.topNav .list-name {
+    margin-right: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: transparent;
+    border-radius: 5px;
+    color: gold; 
+}
+
+.topNav .list-name:hover {
+    background-color: goldenrod; /* Darker shade of gold on hover */
+}
+
+.container {
+    margin-top: 20px;
+    border: 2px solid gold; 
+    padding: 10px; 
+    background-color: black;
+}
+
+.list-container,
+.list-container li {
+    color: gold; 
+}
+
+.ml-3 {
+    margin-right: 20px; 
+}
+
+.clear-completed-button::before {
+    content: "\2714"; 
+    color: gold; /* Setting check mark color to gold */
+    font-size: 1.2em; 
+    margin-left: 5px; 
+    background-color: black;
+}
+
+.clear-completed-button:hover::before {
+    color: black; /* Setting check mark color to black on hover */
+    background-color: gold;
+}
+
+.topNav .btn {
+    margin-left: 0; 
+    margin-right: 10px; 
+}

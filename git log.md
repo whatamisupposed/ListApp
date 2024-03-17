@@ -120,3 +120,9 @@ Author: Emily Twyman <twymanem@gmail.com>
 Date:   Tue Mar 12 08:14:40 2024 -0600
 
     added more different comments
+
+    commit 6e554fac853e11785dadc51b14b538272cb16366 (HEAD -> main, origin/main)
+Author: Emily Twyman <twymanem@gmail.com>
+Date:   Sat Mar 16 20:57:41 2024 -0600
+
+    made edit button work. organised js added comments
