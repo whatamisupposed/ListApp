@@ -91,35 +91,9 @@ function loadData() {
     }
 }
 
-
-function saveData2() {
-    var container = document.querySelector('.container');
-    var data = {
-        lists: []
-    };
-    const urlParams = new URLSearchParams(window.location.search);
-    const profileName = urlParams.get('profile');
-    container.querySelectorAll('.list-container').forEach(function(listContainer) {
-        var listData = {
-            name: listContainer.querySelector('input[type="text"]').value.trim(),
-            tasks: []
-        };
-        listContainer.querySelectorAll('ul li').forEach(function(task) {
-            var taskNameSpan = task.querySelector('span'); // Target the span containing the task name
-            var taskObj = {
-                name: taskNameSpan.textContent, // Use the text content of the span
-                completed: task.querySelector('input[type="checkbox"]').checked
-            };
-            listData.tasks.push(taskObj);
-        });
-        data.lists.push(listData);
-    });
-    localStorage.setItem('todoData', JSON.stringify(data));
-}
-
 // Add event listeners for drag-and-drop functionality
 function attachTaskEventListeners(container) {
-    container.querySelectorAll('ul li').forEach(function(task) {
+    container.querySelectorAll('.list-container ul li').forEach(function(task) {
         task.setAttribute('draggable', true); // Make tasks draggable
 
         task.addEventListener('dragstart', function(event) {
@@ -130,20 +104,30 @@ function attachTaskEventListeners(container) {
         task.addEventListener('dragend', function() {
             task.classList.remove('dragging'); // Remove the dragging class after dragging ends
         });
-    });
 
-    container.addEventListener('dragover', function(event) {
-        event.preventDefault(); // Allow drop
-        const draggedTask = container.querySelector('.dragging');
-        if (draggedTask) {
-            const afterElement = getDragAfterElement(container, event.clientY);
-            const parent = draggedTask.parentNode;
-            if (afterElement === null) {
-                parent.appendChild(draggedTask);
-            } else {
-                parent.insertBefore(draggedTask, afterElement);
+        task.addEventListener('dragover', function(event) {
+            event.preventDefault(); // Allow drop
+            const draggedTaskId = event.dataTransfer.getData('text/plain');
+            const draggedTask = document.getElementById(draggedTaskId);
+            if (draggedTask && draggedTask !== task && draggedTask.parentNode === task.parentNode) {
+                const afterElement = getDragAfterElement(task, event.clientY);
+                const parent = task.parentNode;
+                if (afterElement === null) {
+                    parent.appendChild(draggedTask);
+                } else {
+                    parent.insertBefore(draggedTask, afterElement);
+                }
             }
-        }
+        });
+
+        task.addEventListener('drop', function(event) {
+            event.preventDefault();
+            const draggedTaskId = event.dataTransfer.getData('text/plain');
+            const newListId = task.parentNode.id;
+            const newTaskIndex = Array.from(task.parentNode.children).indexOf(task);
+            const newData = updateTaskOrder(draggedTaskId, newListId, newTaskIndex);
+            saveData(newData);
+        });
     });
 }
 

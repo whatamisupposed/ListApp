@@ -1,3 +1,23 @@
+function addTask(taskInput, taskListId) {
+    var task = taskInput.value.trim();
+    if (task !== '') {
+        var taskList = document.getElementById(taskListId);
+        if (!taskList) {
+            console.error("Task list not found!");
+            return;
+        }
+        var li = createTaskElement(task);
+
+        taskList.appendChild(li);
+
+        // Attach event listeners for the newly added task
+        attachTaskEventListeners(li);
+
+        taskInput.value = '';
+        saveData(); // Save data after adding a task
+    }
+}
+
 function editTask(li) {
     var taskTextElement = li.firstChild; // Get the text node of the list item
     var taskText = taskTextElement.textContent; // Get the text content of the list item
@@ -28,6 +48,7 @@ document.querySelector('.container').addEventListener('click', function(event) {
 
 function deleteTask(task) {
     task.parentNode.removeChild(task);
+    saveData();
 }
 
 document.querySelectorAll('.add-task').forEach(function(addTaskButton) {
@@ -129,7 +150,7 @@ function addTask(taskInput, taskListId) {
         taskList.appendChild(li);
 
         // Attach event listeners for the newly added task
-        attachTaskEventListeners(li);
+        attachTaskEventListeners(task);
 
         taskInput.value = '';
         saveData();

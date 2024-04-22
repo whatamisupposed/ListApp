@@ -181,3 +181,8 @@ function clearCompletedTasks1(taskList) {
         }
     });
 }
+
+function loadTodoData(profileName) {
+    let todoData = JSON.parse(localStorage.getItem(`todoData_${profileName}`)) || { lists: [] };
+    return todoData;
+}
