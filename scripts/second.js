@@ -36,6 +36,10 @@ function editTask(li) {
         saveData(); // Save edited data
     }
 }
+editButton.addEventListener('click', function() {
+    editTask(task);
+    saveData(); // Save the updated state
+});
 
 // Attach event listener to the container for edit button click event
 document.querySelector('.container').addEventListener('click', function(event) {
@@ -50,6 +54,10 @@ function deleteTask(task) {
     task.parentNode.removeChild(task);
     saveData();
 }
+deleteButton.addEventListener('click', function() {
+    deleteTask(task);
+    saveData(); // Save the updated state
+});
 
 document.querySelectorAll('.add-task').forEach(function(addTaskButton) {
     addTaskButton.addEventListener('click', function() {
@@ -156,3 +164,4 @@ function addTask(taskInput, taskListId) {
         saveData();
     }
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                

@@ -1,26 +1,3 @@
-document.addEventListener8('DOMContentLoaded', function() {
-    loadData(); // Load data for the current user, including tasks
-    // loadTasksForCurrentUser(); // Attach event listeners to the loaded tasks
-
-    document.querySelector('.container').addEventListener('click', function(event) {
-        if (event.target && event.target.classList.contains('add-task')) {
-            var listContainer = event.target.closest('.list-container');
-            if (listContainer) {
-                var newTaskInput = listContainer.querySelector('input[type="text"]');
-                var taskList = listContainer.querySelector('ul');
-                addTask(newTaskInput, taskList.id);
-            }
-        }
-    });
-
-    // Add event listeners for adding new lists
-    document.querySelectorAll('.add-list').forEach(function(addListButton) {
-        addListButton.addEventListener('click', function() {
-            addNewList();
-        });
-    });
-});
-
 document.addEventListener('DOMContentLoaded', function() {
     loadData(); // Load data for the current user, including tasks
 
@@ -97,3 +74,16 @@ function createListContainer(listData) {
 
     return newListDiv;
 }
+
+completeCheckbox.addEventListener('change', function() {
+    if (completeCheckbox.checked) {
+        task.style.textDecoration = 'line-through';
+    } else {
+        task.style.textDecoration = 'none';
+    }
+    saveData(); // Save the updated state
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadData(); // Load data for the current user, including tasks
+});

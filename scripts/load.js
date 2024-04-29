@@ -63,7 +63,6 @@ function loadData() {
                 removeListNameFromTopNav(newListHeading.textContent); 
             };
             newListDiv.appendChild(deleteListButton);
-
             var clearCompletedButton = document.createElement('button');
             clearCompletedButton.textContent = 'Clear Completed';
             clearCompletedButton.onclick = function() {
